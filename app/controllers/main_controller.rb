@@ -8,6 +8,7 @@ class MainController < ApplicationController
         @user = User.find_by(email: login_params[:email])
         if @user != nil
             if @user.authenticate(login_params[:password])
+                session[:user_id] = @user.id
                 redirect_to "/users"
             else
                 redirect_to "/main", alert: "Wrong password"
@@ -18,6 +19,7 @@ class MainController < ApplicationController
     end
     def feed
         @user = User.find(session[:user_id])
+        @posts = User.followee_posts(@user)
     end
     private
         def login_params
