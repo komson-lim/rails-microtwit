@@ -11,4 +11,8 @@
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   %body
+    - puts current_page?(controller: "main", action: "register")
+    - puts action_name
+    - unless current_page?("/main") || current_page?("/register") || (action_name == "create_user")
+      = render '/layouts/navbar'
     = yield

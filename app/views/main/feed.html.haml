@@ -1,6 +1,15 @@
-%ol
-- @posts.each do |post|
-    %li
-        = post.name
-        = post.message
-        = post.created_at
+.container
+    %h1{class: "fs-1 fw-bold text-center"}=@user.name
+
+
+.row
+    .col-lg-4.col-md-3.col-sm-2
+    .col-lg-4.col-md-6.col-sm-8
+        - @posts.each do |post|
+            .container.justify-content-center.border.rounded.my-2.pt-3
+                %p{class: "fs-3 fw-bold mt-3"}= post.name
+                %p{class: "fs-4 text-break mb-4", style: "line-height: 25px"}= post.message
+                %p{class: "text-end"}= post.created_at
+    .col-lg-4.col-md-3.col-sm-2.mt-2
+        = link_to "new post", new_post_path, class: "btn btn-outline-primary "
+         

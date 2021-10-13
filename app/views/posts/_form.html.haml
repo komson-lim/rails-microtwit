@@ -2,10 +2,16 @@
 = simple_form_for(@post) do |f|
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
-
-  .form-inputs
-    = f.input :message
-    = f.association :user
-
-  .form-actions
-    = f.button :submit
+  .row
+    .col-lg-2.col-sm-1
+    .col-lg-8.col-sm-10
+      .form-inputs
+        = f.input :message, as: :text
+        = f.hidden_field :user_id, value: user_id
+    .col-lg-2.col-sm-1
+  .row.mt-4
+    .col-lg-2.col-sm-1
+    .col-lg-8.col-sm-10
+      .form-actions
+        = f.button :submit, class: "btn btn-outline-primary"
+      = link_to "Back", "/main"

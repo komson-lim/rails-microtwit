@@ -1,0 +1,22 @@
+.container
+    %h1{class: "fs-1 fw-bold text-center"}=@user_profile.name
+
+
+.row
+    .col-lg-4.col-md-3.col-sm-2
+    .col-lg-4.col-md-6.col-sm-8
+        - @posts.each do |post|
+            .container.justify-content-center.border.rounded.my-2.pt-3
+                %p{class: "fs-3 fw-bold mt-3"}= post.name
+                %p{class: "fs-4 text-break mb-4", style: "line-height: 25px"}= post.message
+                %p{class: "text-end"}= post.created_at
+    .col-lg-4.col-md-3.col-sm-2.mt-2
+        - if @isFollow
+            - if @user.id == @user_profile.id
+                = button_to "unfollow", "/unfollow" ,params: {follower_id: @user.id, followee_id: @user_profile.id },class: "btn btn-outline-danger", disabled: true
+            - else
+                = button_to "unfollow", "/unfollow" ,params: {follower_id: @user.id, followee_id: @user_profile.id },class: "btn btn-outline-danger"
+                
+        - else
+            = button_to "follow", "/follow" ,params: {follower_id: @user.id, followee_id: @user_profile.id },class: "btn btn-outline-success"
+         
