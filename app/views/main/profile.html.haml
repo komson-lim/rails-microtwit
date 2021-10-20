@@ -5,11 +5,7 @@
 .row
     .col-lg-4.col-md-3.col-sm-2
     .col-lg-4.col-md-6.col-sm-8
-        - @posts.each do |post|
-            .container.justify-content-center.border.rounded.my-2.pt-3
-                = link_to post.name,"/profile/#{post.name}" ,class: "fs-3 fw-bold"
-                %p{class: "fs-4 text-break my-4", style: "line-height: 25px"}= post.message
-                %p{class: "text-end"}= post.created_at
+        = render "display", posts: @posts, user: @user
     .col-lg-4.col-md-3.col-sm-2.mt-2
         - if @isFollow
             - if @user.id == @user_profile.id

@@ -1,0 +1,26 @@
+- posts.each do |post|
+    .container.justify-content-center.border.rounded.my-2.py-4{id: post.id}
+        = link_to post.name,"/profile/#{post.name}" ,class: "fs-3 fw-bold"
+        %p{class: "fs-4 text-break my-4", style: "line-height: 25px"}= post.message
+        %p{class: "text-end"}= post.created_at
+        - if post.isLike(user)
+            = button_to "Unlike", "/unlike", params: {post_id: post.id, user_id: user}, class: "btn btn-primary"
+        - else
+            = button_to "Like", "/like", params: {post_id: post.id, user_id: user}, class: "btn btn-primary"
+        %br
+        %a.link-secondary{"data-bs-target": "#likeList#{post.id}", "data-bs-toggle": "modal", href: "#"}
+            ="Like: #{post.like_users.count}"
+
+        .modal.fade{"aria-hidden" => "true", "aria-labelledby" => "likeTitle", :tabindex => "-1", id: "likeList#{post.id}"}
+            .modal-dialog
+                .modal-content
+                    .modal-header
+                        %h5#likeTitle.modal-title Like
+                        %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", :type => "button"}
+                    .modal-body
+                        %ul
+                            -post.like_users.each do |user|
+                                %li
+                                    =link_to user.name, "/profile/#{user.name}"
+                    .modal-footer
+                        %button.btn.btn-secondary{"data-bs-dismiss" => "modal", :type => "button"} Close

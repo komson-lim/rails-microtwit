@@ -9,5 +9,7 @@ Rails.application.routes.draw do
   post 'unfollow', to: 'follow#destroy'
   get 'register', to: 'main#register'
   post 'register', to: 'main#create_user'
+  post 'like', to: 'like#create'
+  post 'unlike', to: 'like#destroy'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

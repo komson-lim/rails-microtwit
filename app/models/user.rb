@@ -4,15 +4,18 @@ class User < ApplicationRecord
     has_many :follower_members, class_name: "Follow", foreign_key: "followee_id"
     has_many :followers, through: "follower_members"
     has_many :followees, through: "followee_members"
+    has_many :like_users, class_name: "Like", foreign_key: "user_id"
     has_secure_password
     validates :email,:name, uniqueness: true 
     validates :email,:name,:password, presence: true
 
-    def followee_posts
-        self.followees.joins(:posts).select("message", "name", "posts.created_at AS created_at").order("created_at DESC")
+    def get_feed_post
+        Post.joins(:user).where(user_id: self.followees).select("message", "name", "posts.id","posts.created_at AS created_at").order("created_at DESC")
+        # self.followees.joins(:posts).select("message", "name","posts.id","posts.created_at AS created_at").order("created_at DESC")
+        # Post.joins(self.followees).select("message", "name","posts.id","posts.created_at AS created_at").order("created_at DESC")
     end
     def user_posts
-        self.posts.joins(:user).select("message", "name", "posts.created_at AS created_at").order("created_at DESC")
+        self.posts.joins(:user).select("message", "name", "posts.id","posts.created_at AS created_at").order("created_at DESC")
     end
     # def feed_posts
     #     self.followee_posts + self.user_posts

@@ -10,13 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_07_141211) do
+ActiveRecord::Schema.define(version: 2021_10_18_101310) do
 
   create_table "follows", force: :cascade do |t|
     t.integer "follower_id"
     t.integer "followee_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "post_id", null: false
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_likes_on_post_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -35,5 +43,6 @@ ActiveRecord::Schema.define(version: 2021_10_07_141211) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "likes", "posts"
   add_foreign_key "posts", "users"
 end

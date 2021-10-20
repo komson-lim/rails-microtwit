@@ -35,7 +35,7 @@ class MainController < ApplicationController
     def feed
         if isLogin
             @user = User.find(session[:user_id])
-            @posts = @user.followee_posts
+            @posts = @user.get_feed_post
         # @posts = @user.feed_posts
         end
     end
