@@ -7,3 +7,7 @@ one:
 two:
   follower_id: 1
   followee_id: 1
+
+d_follow_s:
+  follower_id: 3
+  followee_id: 4

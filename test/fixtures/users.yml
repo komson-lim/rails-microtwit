@@ -9,3 +9,15 @@ two:
   email: MyString
   name: MyString
   password_digest: MyString
+
+ddd:
+  email: ddd
+  name: ddd
+  password_digest: <%= BCrypt::Password.create('ddd', cost: 4) %>
+  id: 3
+
+sss:
+  email: sss
+  name: sss
+  password_digest: <%= BCrypt::Password.create('sss', cost: 4) %>
+  id: 4

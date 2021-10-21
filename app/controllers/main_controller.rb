@@ -4,7 +4,7 @@ class MainController < ApplicationController
         @user = User.new
     end
     def login
-        puts "vvvvvvv"
+        # puts "vvvvvvv"
         @user = User.find_by(email: login_params[:email])
         if @user != nil
             if @user.authenticate(login_params[:password])
