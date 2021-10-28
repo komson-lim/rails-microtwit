@@ -7,20 +7,27 @@
             = button_to "Unlike", "/unlike", params: {post_id: post.id, user_id: user}, class: "btn btn-primary"
         - else
             = button_to "Like", "/like", params: {post_id: post.id, user_id: user}, class: "btn btn-primary"
-        %br
-        %a.link-secondary{"data-bs-target": "#likeList#{post.id}", "data-bs-toggle": "modal", href: "#"}
-            ="Like: #{post.like_users.count}"
+        %button.btn.btn-link.btn-sm.shadow-none.modal-btn{"data-modal": post.get_like_users.to_json}
+            ="Like: #{post.get_like_users.size}"
 
-        .modal.fade{"aria-hidden" => "true", "aria-labelledby" => "likeTitle", :tabindex => "-1", id: "likeList#{post.id}"}
-            .modal-dialog
-                .modal-content
-                    .modal-header
-                        %h5#likeTitle.modal-title Like
-                        %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", :type => "button"}
-                    .modal-body
-                        %ul
-                            -post.like_users.each do |user|
-                                %li
-                                    =link_to user.name, "/profile/#{user.name}"
-                    .modal-footer
-                        %button.btn.btn-secondary{"data-bs-dismiss" => "modal", :type => "button"} Close
+.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "likeTitle", :tabindex => "-1", id: "like-modal"}
+    .modal-dialog
+        .modal-content
+            .modal-header
+                %h5#likeTitle.modal-title Like
+                %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", :type => "button"}
+            .modal-body
+                %ul{id: "modal-list"}
+            .modal-footer
+                %button.btn.btn-secondary{"data-bs-dismiss" => "modal", :type => "button"} Close
+
+:javascript  
+    $(document).ready(function(){
+        $(".modal-btn").click(function(){
+            var myModal = new bootstrap.Modal(document.getElementById('like-modal'), {});
+            myModal.show()
+            arr = JSON.parse($(this).attr("data-modal"))
+            $("#modal-list").empty()
+            arr.forEach(element => $("#modal-list").append(`<li><a href="/profile/${element["name"]}">${element["name"]}</a></li>`))
+        })
+    })

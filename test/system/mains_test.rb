@@ -32,6 +32,6 @@ class MainsTest < ApplicationSystemTestCase
     click_on "Login"
     find('[id="10"]').find('input').click
     visit "/profile/sss"
-    assert_equal "Like: 1", find('[id="10"]').find('a[href="#"]').text
+    assert_equal "Like: 1", find('[id="10"]').find('button').text
   end
 end

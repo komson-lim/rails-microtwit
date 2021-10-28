@@ -6,4 +6,7 @@ class Post < ApplicationRecord
   def isLike(user)
     Like.exists?(user_id: user.id, post_id: self.id)
   end
+  def get_like_users
+    self.like_users.select("name", "users.id")
+  end
 end
