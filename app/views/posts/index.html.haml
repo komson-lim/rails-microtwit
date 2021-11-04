@@ -1,6 +1,6 @@
 %h1 Listing posts
 
-%table
+%table{id: "post_table"}
   %thead
     %tr
       %th Message
@@ -21,3 +21,6 @@
 %br
 
 = link_to 'New Post', new_post_path
+
+:javascript
+  $('#post_table').DataTable();

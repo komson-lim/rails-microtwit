@@ -1,6 +1,6 @@
 %h1 Listing users
 
-%table
+%table{id: "user_table"}
   %thead
     %tr
       %th Email
@@ -23,3 +23,6 @@
 %br
 
 = link_to 'New User', new_user_path
+
+:javascript
+  $('#user_table').DataTable();
